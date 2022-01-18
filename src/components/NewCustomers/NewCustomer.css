@@ -1,0 +1,27 @@
+.new-customer {
+  background-color: #967ceb;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 75%;
+  max-width: 95%;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.new-customer button {
+  border: 1px solid #38189e;
+  background-color: #38189e;
+  color: white;
+}
+
+
+.new-customer button:hover,
+.new-customer button:active {
+  background-color: #373b3e;
+  border-color: #373b3e;
+}
+
+.new-customer button:focus {
+  background-color: #7350e4;
+  border-color: #7350e4;
+}

@@ -1,0 +1,120 @@
+.edit-session {
+    padding: 1rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+    border: none;
+    width: 90%;
+}
+  
+.edit-session button {
+    border: 1px solid #38189e;
+    background-color: #38189e;
+    color: white;
+    margin-right: 1rem;
+    
+}
+  
+.edit-session button:hover,
+.edit-session button:active {
+    background-color: #373b3e;
+    border-color: #373b3e;
+}
+  
+.edit-session button:focus {
+    background-color: #7350e4;
+    border-color: #7350e4;
+}
+
+.edit-session-line {
+    padding: 1rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+    border: none;
+    width: 90%;
+}
+  
+.edit-session-line button {
+    border: 1px solid #38189e;
+    background-color: #38189e;
+    color: white;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    
+}
+  
+.edit-session-line button:hover,
+.edit-session-line button:active {
+    background-color: #373b3e;
+    border-color: #373b3e;
+}
+  
+.edit-session-lines button:focus {
+    background-color: #7350e4;
+    border-color: #7350e4;
+}
+
+.edit-header {
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.input-spacing {
+    margin-bottom: 0.5rem;
+}
+
+.nav-tabs .nav-link{
+    color: white;
+    background-color: #38189e;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #373b3e;
+    border-color: #373b3e;
+    color: white;
+}
+
+.center-icon {
+    margin: 0 0 0 0;
+    width: 50%;
+    padding: 10px;
+}
+
+.center-icon button {
+    margin: 0 0 0 0;
+}
+
+.center-content {
+    text-align: center;
+
+}
+
+.center-content button {
+   margin-top: 1rem;
+   width: 5rem;
+   margin-left: 0.5rem;
+   margin-right: 0.5rem;
+
+}
+
+
+.center-text-vertical {
+    vertical-align: middle;
+}
+
+.vertical-top-align {
+    vertical-align: top;
+}
+
+.pass-alert {
+    margin-top: 1rem;
+}
+
+.see-pass {
+    display: flex;
+}
+
+.see-pass-icon {
+    margin-left: 1rem;
+}

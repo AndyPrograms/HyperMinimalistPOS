@@ -1,0 +1,19 @@
+.paypal {
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 5rem;
+}
+
+.new-customer-header {
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.new-customer-alert {
+  margin: 0.5rem;
+}

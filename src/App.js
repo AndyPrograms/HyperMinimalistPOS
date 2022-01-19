@@ -26,7 +26,6 @@ const App = () => {
   const [customerPayed, setCustomerPayed] = useState(false);
   const [nextClientNumber, setNextClientNumber] = useState(1);
   const [editSession, setEditSession] = useState(false);
-  const p = "Password"
 
   const editSessionHandler = () => {
     setEditSession(true)
@@ -57,7 +56,7 @@ const App = () => {
         modalBool={editSession}
         customers={paidCustomers}
         editCustomers={setPaidCustomers}
-        p={p}
+        p={process.env.REACT_APP_P}
       >
       </EditSessionModal>
       <IconButton className="edit-session-modal" onClick={editSessionHandler}>

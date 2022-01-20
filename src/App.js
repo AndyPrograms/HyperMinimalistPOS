@@ -56,7 +56,8 @@ const App = () => {
         modalBool={editSession}
         customers={paidCustomers}
         editCustomers={setPaidCustomers}
-        p={process.env.REACT_APP_P}
+        // p={process.env.REACT_APP_P}
+        p={"Password"}
       >
       </EditSessionModal>
       <IconButton className="edit-session-modal" onClick={editSessionHandler}>

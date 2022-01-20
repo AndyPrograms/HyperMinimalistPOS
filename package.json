@@ -2,12 +2,11 @@
   "name": "hyper-minimalist-pos",
   "version": "0.1.0",
   "engines": {
-    "node": "16.2.0"
+    "node": "16.2.0",
+    "npm": "8.3.1"
   },
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",

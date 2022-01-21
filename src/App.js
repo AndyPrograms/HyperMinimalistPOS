@@ -7,19 +7,8 @@ import './App.css'
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-
-const DUMMY_CUSTOMERS = [
-  {
-    id: '0',
-    firstName: 'John',
-    lastName: 'Doe',
-    clientNumber: 0,
-    placeInLine: 1
-  },
-];
-
 const App = () => {
-  const [paidCustomers, setPaidCustomers] = useState(DUMMY_CUSTOMERS);
+  const [paidCustomers, setPaidCustomers] = useState([]);
   const [checkout, setCheckOut] = useState(false);
   const [serviceName, setServiceName] = useState("1 Hour of Services");
   const [servicePrice, setServicePrice] = useState(50.00);

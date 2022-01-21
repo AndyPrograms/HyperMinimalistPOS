@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { TryRounded } from '@mui/icons-material';
+import TryRounded from '@mui/icons-material/TryRounded';
 
 
 const EditSessionModal = (props) => {

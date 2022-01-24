@@ -56,7 +56,7 @@ const EditSessionForm = (props) => {
             serviceDesc === "Your Services Here" ||
             price < 1
         ) {
-            if (timeValue < 0.01){
+            if (timeValue < 1){
                 setNumValid(true)
             }
             if (timeType === ""){
@@ -65,7 +65,7 @@ const EditSessionForm = (props) => {
             if (serviceDesc === "" || serviceDesc === "Your Services Here"){
                 setSerValid(true)
             }
-            if (price < 0.01){
+            if (price < 1){
                 setPriceValid(true)
             }
             
@@ -135,12 +135,12 @@ const EditSessionForm = (props) => {
                 <Form.Label>Service Price (USD)</Form.Label>
                 <Form.Control 
                 isInvalid={priceValid}
-                placeholder="0.00"
-                type="double"
+                placeholder="0.01"
+                type="float"
                 value={price}
                 onChange={priceChangeHandler}
                 step="0.01"
-                min="0.01"
+                min="1"
                 />
             </Form.Group>
             <Button 

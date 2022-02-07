@@ -3,46 +3,115 @@ import PayPal from "../PayPal/PayPal";
 import "./NewCustomerForm.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
+const getElementByID = (arr, id) => {
+  return arr.find(x => x.id === id)
+}
 
 const NewCustomerForm = (props) => {
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredLastName, setEnteredLastName] = useState("");
-  const [buttonText, setButtonText] = useState("Checkout");
+  const [selectedService, setSelectedService] = useState("");
+  const [phone, setPhone] = useState("");
   const [firstValid, setFirstValid] = useState(false);
   const [lastValid, setLastValid] = useState(false);
+  const [phoneValid, setPhoneValid] = useState(false);
+  const [serviceValid, setServiceValid] = useState(false);
 
-  const buttonTextHandler = () => {
-    if (props.checkout === true){
-      setButtonText("Checkout")
+  
+  const formatServices = () => {
+    const display = (desc, price) => {
+      return desc + ", $" + price
     }
-    else setButtonText("Cancel")
+    const services = props.services
+    let arr = [<option value={""} key={"-1"}>Select Service</option>]
+        for (let i = 0; i < services.length; i++) {
+          const optionValue = display(services[i].name, services[i].price)
+
+          arr[i+1] = <option value={services[i].id} key={i.toString()}>
+            {optionValue}
+          </option>
+        }
+        return arr
   }
 
-  const namePresentChecker = () => {
-    if (enteredFirstName !== "" && enteredLastName !== ""){
-      return true
-    }
-    else
+  const resetVal = () => {
+    setFirstValid(false)
+    setLastValid(false)
+    setPhoneValid(false)
+    setServiceValid(false)
+  }
+
+  const firstNamePresentChecker = () => {
     if (enteredFirstName === "") {
       setFirstValid(true)
-    }
+      return false
+    } else
+      setFirstValid(false)
+      return true
+  }
+
+  const lastNamePresentChecker = () => {
     if (enteredLastName === "") {
       setLastValid(true)
+      return false
+    } else
+      setLastValid(false)
+      return true
+  }
+
+  const phoneChecker = () => {
+    if (phone === "") {
+      setPhoneValid(true)
+      return false
+    } else
+      setPhoneValid(false)
+      return true 
+  }
+
+  const serviceChecker = () => {
+    if (selectedService === "") {
+      setServiceValid(true)
+      return false
+    } else
+      setServiceValid(false)
+      return true
+  }
+
+  const checkAll = () => {
+    lastNamePresentChecker()
+    phoneChecker()
+    serviceChecker()
+    if (
+        firstNamePresentChecker() && 
+        lastNamePresentChecker() &&
+        phoneChecker() &&
+        serviceChecker()
+    ) {
+      return true
     }
     return false
-    
   }
 
   const firstNameChangeHandler = (event) => {
-    setEnteredFirstName(event.target.value);
-  };
+    setEnteredFirstName(event.target.value)
+    
+  }
 
   const lastNameChangeHandler = (event) => {
-    setEnteredLastName(event.target.value);
-  };
+    setEnteredLastName(event.target.value)
+  }
+
+  const serviceSelectHandler = (event) => {
+    setSelectedService(event.target.value)
+    props.setServicePrice(getElementByID(props.services, event.target.value).price)
+    props.setServiceName(getElementByID(props.services, event.target.value).name)
+  }
+
+  const phoneChangeHandler = (event) => {
+    setPhone(event.target.value)
+  }
 
   const submitHandler = () => {
     const customerData = {
@@ -50,31 +119,36 @@ const NewCustomerForm = (props) => {
       firstName: enteredFirstName,
       lastName: enteredLastName,
       clientNumber: "",
-      placeInLine: ""
+      placeInLine: "",
+      clientService: selectedService,
+      phone: phone
     };
 
     props.onAddCustomerToLine(customerData);
-    setEnteredFirstName("");
-    setEnteredLastName("");
-    props.setCustomerPayed(false);
-    buttonTextHandler()
-    setFirstValid(false)
-    setLastValid(false)
+    setEnteredFirstName("")
+    setEnteredLastName("")
+    setPhone("")
+    setSelectedService("")
+    props.setCustomerPayed(false)
+    resetVal()
     
   };
-
-  const localCheckoutHandler = () => {
-    if (props.checkout === false) {
-      props.setCheckOut(true)
-    }
-    else props.setCheckOut(false)
-  }
 
   return (
     <Form>
       <Form.Group className="mb-3">
-        <h3 className="new-customer-header">Purchase a place in line for the following:</h3>
-        <h4>{props.serviceName} for ${props.servicePrice}</h4>
+        <h3 className="new-customer-header">Purchase a place in line:</h3>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicInput">
+        <Form.Label>Select Service</Form.Label>
+        <Form.Select 
+            isInvalid={serviceValid}
+            onChange={serviceSelectHandler}
+            value={selectedService}
+        >
+            {formatServices()}
+        </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicInput">
@@ -98,41 +172,40 @@ const NewCustomerForm = (props) => {
           onChange={lastNameChangeHandler}
         />
       </Form.Group>
-      <div className="paypal">
-      {props.checkout ? (
-            
-            <PayPal 
 
-            serviceName = {props.serviceName}
-            servicePrice = {props.servicePrice}
-            setCustomerPayed={props.setCustomerPayed}
-            onAddCustomer={props.onAddCustomer}
-            submitHandler={submitHandler}
-            
-            >
-            </PayPal>
-          ) : (
-          <div></div>
-        )}
-      </div>
-      <Button variant="primary" type="button" 
-          onClick={()=> {
-            setFirstValid(false)
-            setLastValid(false)
-            if (namePresentChecker()) {
-              localCheckoutHandler();
-              buttonTextHandler();
-              setFirstValid(false)
-              setLastValid(false)
-            }
-            }}>
-          {buttonText}
-      </Button>
-      {firstValid || lastValid ? 
+      <Form.Group className="mb-3" controlId="formBasicInput">
+        <Form.Label>Phone Number</Form.Label>
+        <Form.Control 
+          isInvalid={phoneValid} 
+          type="text" 
+          placeholder="(XXX) XXX-XXXX"
+          value={phone}
+          onChange={phoneChangeHandler}
+        />
+      </Form.Group>
+
+
+        <div className="paypal">
+          <PayPal 
+
+          serviceName = {props.serviceName}
+          servicePrice = {props.servicePrice}
+          setCustomerPayed={props.setCustomerPayed}
+          onAddCustomer={props.onAddCustomer}
+          submitHandler={submitHandler}
+          resetVal={resetVal}
+          checkAll={checkAll}
+          
+          >
+          </PayPal>
+        </div>
+      
+      
+      { firstValid || lastValid ? 
       
         (
         <Alert className="new-customer-alert" key="validationAlert" variant="danger">
-          Please Finish Entering Your Name to Continue!
+          Please Finish Entering Your Information to Continue!
         </Alert>
         ) : (
         <div></div>

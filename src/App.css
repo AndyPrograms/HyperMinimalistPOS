@@ -18,3 +18,7 @@ body {
     left: 1%;
     position: fixed;
 }
+
+.flexer{
+  display: flex;
+}

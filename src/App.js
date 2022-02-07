@@ -9,7 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 const App = () => {
   const [paidCustomers, setPaidCustomers] = useState([]);
-  const [checkout, setCheckOut] = useState(false);
+  const [services, setServices] = useState([]);
   const [serviceName, setServiceName] = useState("1 Hour of Services");
   const [servicePrice, setServicePrice] = useState(50.00);
   const [customerPayed, setCustomerPayed] = useState(false);
@@ -24,7 +24,6 @@ const App = () => {
     customer.placeInLine = placeInLineHandler(paidCustomers)
     customer.id = nextClientNumber.toString()
     customer.clientNumber = nextClientNumber
-    setCheckOut(false)
     setPaidCustomers(() => {
       return [...paidCustomers, customer];
     });
@@ -37,33 +36,36 @@ const App = () => {
   };
 
   return (
-    <div>
-      <EditSessionModal
-        setServiceName={setServiceName}
-        setServicePrice={setServicePrice}
-        showEditModal={setEditSession}
-        modalBool={editSession}
-        customers={paidCustomers}
-        editCustomers={setPaidCustomers}
-        p={process.env.REACT_APP_P}
-      >
-      </EditSessionModal>
-      <IconButton className="edit-session-modal" onClick={editSessionHandler}>
-        <SettingsIcon sx={{ color: "grey" }} />
-      </IconButton>
-        
-      <NewCustomer 
-          onAddCustomer={addPaidCustomerHandler} 
-          lineLength={paidCustomers.length}           
-          checkout={checkout}
-          serviceName={serviceName}
-          servicePrice={servicePrice}
-          setCheckOut={setCheckOut}
-          customerPayed={customerPayed}
-          setCustomerPayed={setCustomerPayed}
-          
-      />
-      <CustomerTable customers={paidCustomers} />
+  <div>
+    <EditSessionModal
+      services={services}
+      setServices={setServices}
+      showEditModal={setEditSession}
+      modalBool={editSession}
+      customers={paidCustomers}
+      editCustomers={setPaidCustomers}
+      p={process.env.REACT_APP_P}
+    >
+    </EditSessionModal>
+    <IconButton className="edit-session-modal" onClick={editSessionHandler}>
+      <SettingsIcon sx={{ color: "grey" }} />
+    </IconButton>
+      <div className="flexer">
+        <NewCustomer 
+            onAddCustomer={addPaidCustomerHandler} 
+            lineLength={paidCustomers.length}  
+            setServiceName={setServiceName}
+            services={services}
+            setServicePrice={setServicePrice}        
+            serviceName={serviceName}
+            servicePrice={servicePrice}
+            customerPayed={customerPayed}
+            setCustomerPayed={setCustomerPayed}
+            sessionEdit={editSession}
+            
+        />
+        <CustomerTable customers={paidCustomers} />
+      </div>
     </div>
   );
 };

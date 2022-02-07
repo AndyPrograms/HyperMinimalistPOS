@@ -20,13 +20,15 @@ const NewCustomer = (props) => {
     <div className="new-customer">
         <NewCustomerForm
           onAddCustomerToLine={addNewCustomerToLineHandler}
-          checkout={props.checkout}
+          setServicePrice={props.setServicePrice}
+          setServiceName={props.setServiceName}
           serviceName={props.serviceName}
           servicePrice={props.servicePrice}
-          setCheckOut={props.setCheckOut}
           customerPayed={props.customerPayed}
           setCustomerPayed={props.setCustomerPayed}
           onAddCustomer={props.onAddCustomer}
+          sessionEdit={props.sessionEdit}
+          services={props.services}
         />
     </div>
   );

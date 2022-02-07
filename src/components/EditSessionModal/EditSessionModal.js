@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import EditSessionForm from './EditSessionForm'
 import CustomerTableEdit from '../CustomerTable/CustomerTableEdit'
+import CurrentServicesTable from '../CurrentServicesTable/CurrentServicesTable'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./EditSessionForm.css"
 import ReactModal from 'react-modal';
@@ -13,12 +14,19 @@ import Alert from 'react-bootstrap/Alert'
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TryRounded from '@mui/icons-material/TryRounded';
+import Close from '@mui/icons-material/Close';
 
 
 const EditSessionModal = (props) => {
     const [x, setX] = useState(false)
     const [w, setW] = useState(false)
     const [s, setS] = useState("")
+
+    const closeButtonHandler = () => {
+        setX(false)
+        props.showEditModal(false)
+    }
+
     const [values, setValues] = useState({
         password: "",
         showPassword: false,
@@ -44,6 +52,15 @@ const EditSessionModal = (props) => {
         return false
     }
 
+    const submitHandler = (e)=> {
+        e.preventDefault()
+        if (vMain(s)) {
+        setW(false);
+        setX(true);
+        }else
+        setW(true)
+    }
+
     const customStyles = {
         content: {
           top: '5%',
@@ -57,27 +74,42 @@ const EditSessionModal = (props) => {
         <ReactModal
             isOpen={props.modalBool}
             style={customStyles}
-            setServiceName={props.setServiceName}
-            setServicePrice={props.setServicePrice}
             showEditModal={props.showEditModal}
-            ariaHideApp={false}
+            className={'content'}
+            overlayClassName={'overlay'}
         >
+            <div className="close-container">
+                <h3 className="close-header">SESSION SETTINGS</h3>
+                <IconButton
+                    className="close-button"
+                    onClick={()=> {
+                        closeButtonHandler()
+                    }}
+                >
+                    <Close/>
+                </IconButton>
+            </div>
             { x ? (
                 <Tabs
                     defaultActiveKey="1"
                     id="editTabs"
                     className="mb-3"
                     >
-                    <Tab eventKey="1" title="Services">
+                    <Tab className="tab-wide" eventKey="1" title="Services">
                         <div className="edit-session">
                         <EditSessionForm
-                            setServiceName={props.setServiceName}
-                            setServicePrice={props.setServicePrice}
+                            setServices={props.setServices}
+                            services={props.services}
                             showEditModal={props.showEditModal}
                             setX={setX}
                             setS={setS}
                         >
                         </EditSessionForm>
+                        <CurrentServicesTable
+                            services={props.services}
+                            setServices={props.setServices}
+                        >
+                        </CurrentServicesTable>
                         </div>
                     </Tab>
                     <Tab eventKey="2" title="Line">
@@ -94,7 +126,7 @@ const EditSessionModal = (props) => {
                     </Tab>
                 </Tabs> 
                 ) : (
-                <Form className="edit-session">
+                <Form className="edit-session" onSubmit={(e) => {submitHandler(e)}} >
                     <Form.Group className="mb-3" controlId="formBasicInput">
                         <Form.Label>Please Input Password to Access Session Settings</Form.Label>
                         <div className="see-pass">
@@ -117,22 +149,16 @@ const EditSessionModal = (props) => {
                     </Form.Group>
                     <Button 
                         variant="primary"
-                        type="button" 
-                        onClick={()=> {
-                            if (vMain(s)) {
-                            setW(false);
-                            setX(true);
-                            }else
-                            setW(true)
-                        }
-                    }>
+                        type="submit" 
+                        
+                    >
                         Submit
                     </Button>
                     <Button 
                         variant="primary"
                         type="button" 
                         onClick={()=> {
-                            props.showEditModal(false)
+                            closeButtonHandler()
                         }
                     }>
                         Cancel

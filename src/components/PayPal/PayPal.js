@@ -1,47 +1,68 @@
-import React, { useRef, useEffect } from 'react'
+import React from "react";
+
+import ReactDOM from "react-dom"
+
+
 
 export default function PayPal(props) {
-    
-    const paypal = useRef();
 
-    const serviceName = props.serviceName
-    const servicePrice = props.servicePrice
+    const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
-    console.log(props, "PROPS")
-    console.log(serviceName, "NAME")
-    console.log(servicePrice, "PRICE")
+    const style = {
+        shape:   'rect',
+        label:   'checkout',   
+    }
 
-    useEffect(()=> {
-            window.paypal
-                .Buttons({
-                    createOrder: (data, actions, err) => {
-                        return actions.order.create({
-                            intent: "CAPTURE",
-                            purchase_units: [
-                                {
-                                    description: serviceName,
-                                    amount: {
-                                        currency_code: "USD",
-                                        value: servicePrice,
-                                    }
-                                }
-                            ]
-                        })
-                    },
-                    onApprove: async (data, actions) => {
-                        const order = await actions.order.capture()
-                        console.log(order)
-                        await props.submitHandler()
-                    },
-                    onError: (err) => {
-                        console.log(err)
+    const createOrder = (data, actions) => {
+
+        return actions.order.create({
+            intent: "CAPTURE",
+            purchase_units: [
+                {
+                    description: props.serviceName,
+                    amount: {
+                        currency_code: "USD",
+                        value: props.servicePrice,
                     }
-            }).render(paypal.current)
-    }, [props, serviceName, servicePrice])
+                }
+            ],
+            application_context:  { 
+                shipping_preference: "NO_SHIPPING"
+            }
+        })
+
+    };
+
+    const onApprove = (data, actions) => {
+        props.submitHandler()
+        return actions.order.capture()
+    };
+
+    const onError = (data, actions, err) => {
+        console.log(err)
+    }
+
+    const onClick = (data, actions) => {
+        const validator = () => {
+            if (props.checkAll()) {
+                return true
+            } else return false
+        }
+        return validator()
+        
+    };
 
     return (
-        <div>
-            <div ref={paypal}></div>
-        </div>
-    )
-}
+
+        <PayPalButton
+        style={style}
+        onClick={(data, actions) => onClick(data, actions)}
+        createOrder={(data, actions) => createOrder(data, actions)}
+        onApprove={(data, actions) => onApprove(data, actions)}
+        onError={(data, actions, err) => onError(data, actions)}
+
+        />
+
+    );
+
+    }

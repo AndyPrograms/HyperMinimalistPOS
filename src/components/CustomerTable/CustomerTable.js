@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './CustomerTable.css'
 
 const CustomerTable = (props) => {
 
@@ -8,7 +9,7 @@ const CustomerTable = (props) => {
 
     const customTable = {
     
-        width: '75%',
+        width: '100%',
         margin: 'auto',
         textAlign: 'center',
 
@@ -45,30 +46,59 @@ const CustomerTable = (props) => {
                 backgroundColor: '#967ceb',
             }
         }
-        for (let i = 0; i < props.customers.length; i++) {
-            arr[i] = 
-                <tr key={props.customers[i].clientNumber}>
-                    <td style={color(i)}>{props.customers[i].placeInLine}</td>
-                    <td style={color(i)}>{props.customers[i].firstName + " " + props.customers[i].lastName}</td>
-                    <td style={color(i)}>{props.customers[i].clientNumber}</td>
-                </tr>
+
+        const fillEmpty = (fillNum) => {
+            for (let i = fillNum; i < 11; i++) {
+                arr[i] = 
+                    <tr key={"EMPTY" + i}>
+                        <td style={color(i)}>ㅤ</td>
+                        <td style={color(i)}></td>
+                        <td style={color(i)}></td>
+                    </tr>
+            } 
         }
-        return arr
+
+        if (props.customers.length > 0) {
+            for (let i = 0; i < props.customers.length; i++) {
+                arr[i] = 
+                    <tr key={props.customers[i].clientNumber}>
+                        <td style={color(i)}>{props.customers[i].placeInLine}</td>
+                        <td style={color(i)}>{props.customers[i].firstName + " " + props.customers[i].lastName}</td>
+                        <td style={color(i)}>{props.customers[i].clientNumber}</td>
+                    </tr>
+            }
+
+            if (props.customers.length < 11) {
+                fillEmpty(props.customers.length)
+            }
+
+            return arr
+        } else 
+            arr[0] = 
+            <tr key="EMPTYLINE">
+                <td style={color(0)}></td>
+                <td style={color(0)}>No One is Currently in Line</td>
+                <td style={color(0)}></td>
+            </tr>
+            fillEmpty(1)
+            return arr
     }
 
     return (
-        <Table style={customTable} hover borderless variant="dark">
-            <thead>
-                <tr>
-                    <th style={customTHLeft}>Place in Line</th>
-                    <th style={customTHMiddle}>Name</th>
-                    <th style={customTHRight}>Service Number</th>
-                </tr>
-            </thead>
-            <tbody>
-                {tableData()}
-            </tbody>
-        </Table>
+        <div className="flex-child">
+            <Table className="table-formater" style={customTable} hover borderless variant="dark">
+                <thead>
+                    <tr>
+                        <th style={customTHLeft}>Place in Line</th>
+                        <th style={customTHMiddle}>Name</th>
+                        <th style={customTHRight}>Service Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableData()}
+                </tbody>
+            </Table>
+        </div>
     );
 };
 

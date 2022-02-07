@@ -30,7 +30,7 @@
     margin: 2rem auto;
     border-radius: 12px;
     border: none;
-    width: 90%;
+    width: 100%;
 }
   
 .edit-session-line button {
@@ -117,4 +117,57 @@
 
 .see-pass-icon {
     margin-left: 1rem;
+}
+
+.overlay {
+    position: absolute;
+    z-index: 1020;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.75);
+    display: flex;
+
+    justify-content: center;
+}
+  
+.content {
+    background: white;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    width: 100%;
+}
+
+.nav-item {
+    width: 50%;
+}
+
+#editTabs-tab-1 {
+    width: 100%;
+}
+
+#editTabs-tab-2 {
+    width: 100%;
+}
+
+.close-button {
+    float: right;
+}
+
+.close-container {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.close-header {
+    position: absolute;
+    width: 100%;
+    margin-bottom: 0;
+    margin-top: 0.5rem;
 }

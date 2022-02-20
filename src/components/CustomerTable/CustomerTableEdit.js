@@ -19,17 +19,6 @@ const CustomerTableEdit = (props) => {
         textAlign: 'center',
     }
 
-    const customModal = {
-        content: {
-            width: '50%',
-            height: 'auto',
-            right: 'auto',
-            bottom: 'auto',
-            border: 'none',
-            backgroundColor: 'white',
-        }
-    }
-
     const customTable = {
     
         width: '100%',
@@ -179,10 +168,9 @@ const CustomerTableEdit = (props) => {
             >
                 Done
             </Button>
-            <div style={customModal}>
+            <div className="custom-modal">
                 <ReactModal
                     className="edit-session"
-                    style={customModal}
                     isOpen={localModalHandler}
                     ariaHideApp={false}
                 >

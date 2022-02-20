@@ -184,7 +184,6 @@ const NewCustomerForm = (props) => {
         />
       </Form.Group>
 
-
         <div className="paypal">
           <PayPal 
 

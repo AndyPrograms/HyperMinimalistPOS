@@ -5,6 +5,8 @@
   margin-bottom: 1rem;
   text-align: center;
   width: 5rem;
+  position: relative;
+  z-index: 0 !important;
 }
 
 .new-customer-header {

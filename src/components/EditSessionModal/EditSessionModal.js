@@ -77,6 +77,9 @@ const EditSessionModal = (props) => {
             showEditModal={props.showEditModal}
             className={'content'}
             overlayClassName={'overlay'}
+            ariaHideApp={false}
+            setServices={props.setServices}
+            services={props.services}
         >
             <div className="close-container">
                 <h3 className="close-header">SESSION SETTINGS</h3>

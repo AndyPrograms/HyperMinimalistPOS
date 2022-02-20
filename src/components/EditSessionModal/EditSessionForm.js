@@ -12,16 +12,26 @@ const EditSessionForm = (props) => {
     const [serValid, setSerValid] = useState(false)
     const [priceValid, setPriceValid] = useState(false)
 
+    const idHandler = () => {
+        if (props.services[0] !== undefined) {
+            return (parseInt(props.services[props.services.length - 1].id) + 1).toString()
+        } else return 0
+    }
+
     const submitHandler = () => {
         const localService = {
-            id: (parseInt(props.services[props.services.length - 1].id) + 1).toString(),
+            id: idHandler(),
             name: serviceDesc,
             price: price,
         }
-        props.setServices(localService)
-        props.setX(false)
+        console.log(props.services)
+        if (props.services[0]) {
+            props.setServices([...props.services, localService])
+            props.setS("")
+            return
+        } else
+        props.setServices([localService])
         props.setS("")
-        props.showEditModal(false)
     }
 
     const cancelHandler = () => {

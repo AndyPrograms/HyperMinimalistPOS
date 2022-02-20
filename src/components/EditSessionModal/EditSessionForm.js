@@ -15,7 +15,7 @@ const EditSessionForm = (props) => {
     const idHandler = () => {
         if (props.services[0] !== undefined) {
             return (parseInt(props.services[props.services.length - 1].id) + 1).toString()
-        } else return 0
+        } else return "0"
     }
 
     const submitHandler = () => {
@@ -24,7 +24,6 @@ const EditSessionForm = (props) => {
             name: serviceDesc,
             price: price,
         }
-        console.log(props.services)
         if (props.services[0]) {
             props.setServices([...props.services, localService])
             props.setS("")

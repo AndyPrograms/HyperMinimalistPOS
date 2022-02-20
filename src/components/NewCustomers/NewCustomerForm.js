@@ -5,8 +5,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert'
 
-const getElementByID = (arr, id) => {
-  return arr.find(x => x.id === id)
+const getElementByID = (arr, selectedId) => {
+  let result = {}
+  const finder = () => {
+    arr.find(x => {
+      if (x.id === selectedId){
+        result = x
+        return true
+      } return false
+    }
+    )
+  }
+  finder()
+  return result
 }
 
 const NewCustomerForm = (props) => {
@@ -105,8 +116,8 @@ const NewCustomerForm = (props) => {
 
   const serviceSelectHandler = (event) => {
     setSelectedService(event.target.value)
-    props.setServicePrice(getElementByID(props.services, event.target.value).price)
     props.setServiceName(getElementByID(props.services, event.target.value).name)
+    props.setServicePrice(getElementByID(props.services, event.target.value).price)
   }
 
   const phoneChangeHandler = (event) => {

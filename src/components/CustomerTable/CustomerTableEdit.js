@@ -103,11 +103,13 @@ const CustomerTableEdit = (props) => {
         }
         if (props.customers.length > 0) {
             for (let i = 0; i < props.customers.length; i++) {
+                const a = props.customers[i].clientService
+                const b = props.services[a]
                 arr[i] = 
                     <tr key={props.customers[i].clientNumber} className="center-text-vertical">
                         <td style={color(i)}>{props.customers[i].placeInLine}</td>
                         <td style={color(i)}>{props.customers[i].firstName + " " + props.customers[i].lastName}</td>
-                        <td style={color(i)}>{props.customers[i].clientService}</td>
+                        <td style={color(i)}>{b.name}</td>
                         <td style={color(i)}>{props.customers[i].phone}</td>
                         <td style={color(i)}>{props.customers[i].clientNumber}</td>
                         <td style={color(i)} className="center-icon">

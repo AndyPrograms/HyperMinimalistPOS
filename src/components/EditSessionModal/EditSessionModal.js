@@ -121,6 +121,7 @@ const EditSessionModal = (props) => {
                                 customers={props.customers}
                                 editCustomers={props.editCustomers}
                                 showEditModal={props.showEditModal}
+                                services={props.services}
                                 setX={setX}
                                 setS={setS}
                             >

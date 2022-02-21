@@ -24,6 +24,7 @@ const App = () => {
     customer.placeInLine = placeInLineHandler(paidCustomers)
     customer.id = nextClientNumber.toString()
     customer.clientNumber = nextClientNumber
+    console.log([...paidCustomers, customer], "CUSTOMER LIST BACKUP")
     setPaidCustomers(() => {
       return [...paidCustomers, customer];
     });
